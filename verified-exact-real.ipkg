@@ -1,0 +1,22 @@
+package verifiedexactreal
+
+sourcedir = src
+
+pkgs = contrib
+
+opts = "--idrispath /home/papa/.idris/packages/verified-algebra --total --warnpartial --warnreach --allow-capitalized-pattern-variables"
+
+modules =
+  Addition.CarryLemmas,
+  Addition.Carry,
+  Addition.Digit,
+  Addition.Scaling,
+  Addition.Adhoc,
+  Addition.Absorb,
+  Addition.AbsorptionLemmas,
+  Addition.Reduce,
+  Main
+
+executable = run
+
+main = Main
