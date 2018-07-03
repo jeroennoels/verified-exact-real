@@ -1,5 +1,3 @@
-||| This example is inspired by exact real arithmetic.
-||| See README for a brief introduction.
 module Addition.Reduce
 
 import Data.Vect
