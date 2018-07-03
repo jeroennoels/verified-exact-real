@@ -23,6 +23,8 @@ data Ranges : Binrel s -> (s -> s) -> s -> s -> s -> Vect k s -> Type
     (digits : Vect k (Digit leq neg u)) ->
     Ranges leq neg u v pending (map Digit.val digits)
 
+||| To do: prove this.
+||| Need to add the assumption that One is positive.
 absorbCarry : (AdditiveGroup s, Unital s) =>
   DiscreteOrderedGroupSpec {s} (+) Zero Ng leq One ->
     InSymRange leq Ng (u + Ng One) x ->
