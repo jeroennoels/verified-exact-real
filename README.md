@@ -3,7 +3,7 @@
 This Idris program began as an exercise in programming with dependent
 types.  That exercise turned out to be a lot harder than anticipated,
 and produced [Composable algebraic
-specifications](https://github.com/jeroennoels/verified-exact-real) as
+specifications](https://github.com/jeroennoels/verified-algebra) as
 a spin-off.
 
 The goal is to build a _verified_ implementation for a small subset
