@@ -17,8 +17,7 @@ import Addition.Adhoc
 ||| This is a proof friendly semantics function.  Consider a tail
 ||| recursive variation for run time use.
 public export
-phi : (AdditiveGroup s, Multiplicative s, Unital s) =>
-  (radix : s) -> (lsdf : Vect n s) -> (msc : Carry) -> s
+phi : Ringops s => (radix : s) -> (lsdf : Vect n s) -> (msc : Carry) -> s
 phi radix (x :: xs) c = x + radix * phi radix xs c
 phi radix [] c = value c
 
@@ -51,8 +50,8 @@ outputs : Absorption {s} k _ _ _ -> (Carry, Vect (S k) s)
 outputs (MkAbsorption c p o _ _) = (c, reverse (p :: o))
 
 
-absorptionBase : (AdditiveGroup s, Multiplicative s, Unital s) =>
-  DiscreteOrderedRingSpec (+) Zero Ng (*) leq One ->
+absorptionBase : Ringops s =>
+  DiscreteOrderedRingSpec {s} (+) Zero Ng (*) leq One ->
   (radix : s) ->
   (red : Reduction (+) Zero Ng leq One u radix) ->
   Absorption Z (Ranges leq Ng u (u + Ng One)) (phi radix) [input red]
@@ -67,13 +66,12 @@ absorptionBase spec radix (MkReduction i c o invariant outRange) =
     o3 = sym (o1 === o2)
 
 
-arithLemma : (AdditiveGroup s, Multiplicative s, Unital s) =>
-  UnitalRingSpec {s} (+) Zero Ng (*) One ->
+arithLemma : Ringops s => UnitalRingSpec {s} (+) Zero Ng (*) One ->
   (msc : Carry) ->
   (pending : s) ->
   (outputs : Vect k s) ->
   (inputs : Vect (S k) s) ->
-  (red : Reduction (+) Zero Ng _ One u radix) ->
+  (red : Reduction {s} (+) Zero Ng _ One u radix) ->
   (ih : phi radix inputs O = phi radix (pending :: outputs) msc) ->
   phi radix (input red :: inputs) O =
   phi radix (output red :: (value (carry red) + pending) :: outputs) msc
@@ -91,8 +89,8 @@ arithLemma {s} {radix} spec msc pending outputs inputs
     o2 = inductionHypothesis
 
 
-absorptionStep : (AdditiveGroup s, Multiplicative s, Unital s) =>
-  DiscreteOrderedRingSpec (+) Zero Ng (*) leq One ->
+absorptionStep : Ringops s =>
+  DiscreteOrderedRingSpec {s} (+) Zero Ng (*) leq One ->
   (radix : s) ->
   (red : Reduction (+) Zero Ng leq One u radix) ->
   Absorption k (Ranges leq Ng u (u + Ng One)) (phi radix) inputs ->

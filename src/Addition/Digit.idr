@@ -18,9 +18,8 @@ implementation Show s => Show (Digit {s} leq neg u) where
   show (MkDigit x _) = show x
 
 ||| adding two digits makes the range twice as big
-addDigits : AdditiveGroup s =>
-  PartiallyOrderedGroupSpec {s} (+) Zero Ng leq ->
-    OuterBinop (Digit leq Ng) u u (u + u)
+addDigits : Ringops s => PartiallyOrderedGroupSpec {s} (+) Zero Ng leq ->
+  OuterBinop (Digit leq Ng) u u (u + u)
 addDigits spec (MkDigit x p) (MkDigit y q) =
   MkDigit (x + y) (addInSymRange spec p q)
 

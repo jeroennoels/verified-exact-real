@@ -18,7 +18,7 @@ implementation Show Carry where
   show P = "P"
 
 public export
-value : (AdditiveGroup s, Unital s) => Carry -> s
+value : Ringops s => Carry -> s
 value P = One
 value O = Zero
 value M = Ng One
@@ -56,7 +56,7 @@ result (MkReduction _ c o _ _) = (c, o)
 
 ||| See README for a brief introduction.
 ||| 1 <= u - 1 means radix >= 3.
-computeCarry : (AdditiveGroup s, Unital s, Decidable [s,s] leq) =>
+computeCarry : (Ringops s, Decidable [s,s] leq) =>
   DiscreteOrderedGroupSpec (+) Zero Ng leq One ->
   (u : s) -> leq One (u + Ng One) ->
   (x : s) -> InSymRange leq Ng (u + u) x ->

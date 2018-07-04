@@ -10,8 +10,7 @@ import Addition.Carry
 %default total
 %access export
 
-scalingLemmaM : (AdditiveGroup s, Multiplicative s, Unital s) =>
-  UnitalRingSpec {s} (+) Zero Ng (*) One ->
+scalingLemmaM : Ringops s => UnitalRingSpec {s} (+) Zero Ng (*) One ->
   (radix : s) ->
   scale Zero Ng radix M = radix * value M
 scalingLemmaM spec radix = o2 @== o1 where
@@ -20,8 +19,7 @@ scalingLemmaM spec radix = o2 @== o1 where
   o2 : Ng (radix * One) = Ng radix
   o2 = cong $ neutralR (multiplicativeMonoid spec) radix
 
-scalingLemma : (AdditiveGroup s, Multiplicative s, Unital s) =>
-  UnitalRingSpec {s} (+) Zero Ng (*) One ->
+scalingLemma : Ringops s => UnitalRingSpec {s} (+) Zero Ng (*) One ->
     (radix : s) -> (c : Carry) ->
     scale Zero Ng radix c = radix * value c
 scalingLemma spec radix P = sym $ neutralR (multiplicativeMonoid spec) radix
@@ -29,8 +27,7 @@ scalingLemma spec radix O = sym $ zeroAbsorbsR (ring spec) radix
 scalingLemma spec radix M = scalingLemmaM spec radix
 
 
-rewriteInvariant : (AdditiveGroup s, Multiplicative s, Unital s) =>
-  UnitalRingSpec {s} (+) Zero Ng (*) One ->
+rewriteInvariant : Ringops s => UnitalRingSpec {s} (+) Zero Ng (*) One ->
   (radix, i, o : s) ->
   (c : Carry) ->
   scale Zero Ng radix c + o = i ->

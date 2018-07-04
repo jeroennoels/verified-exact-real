@@ -23,18 +23,16 @@ data Ranges : Binrel s -> (s -> s) -> s -> s -> s -> Vect k s -> Type
 
 ||| To do: prove this.
 ||| Need to add the assumption that One is positive.
-absorbCarry : (AdditiveGroup s, Unital s) =>
-  DiscreteOrderedGroupSpec {s} (+) Zero Ng leq One ->
-    InSymRange leq Ng (u + Ng One) x ->
-    (c : Carry) ->
-    InSymRange leq Ng u (value c + x)
+absorbCarry : Ringops s => DiscreteOrderedGroupSpec {s} (+) Zero Ng leq One ->
+  InSymRange leq Ng (u + Ng One) x ->
+  (c : Carry) ->
+  InSymRange leq Ng u (value c + x)
 
-rangeLemma : (AdditiveGroup s, Unital s) =>
-  DiscreteOrderedGroupSpec {s} (+) Zero Ng leq One ->
-    Ranges leq Ng u (u + Ng One) oldPending outputs ->
-    InSymRange leq Ng (u + Ng One) newPending ->
-    (c : Carry) ->
-    Ranges leq Ng u (u + Ng One) newPending ((value c + oldPending) :: outputs)
+rangeLemma : Ringops s => DiscreteOrderedGroupSpec {s} (+) Zero Ng leq One ->
+  Ranges leq Ng u (u + Ng One) oldPending outputs ->
+  InSymRange leq Ng (u + Ng One) newPending ->
+  (c : Carry) ->
+  Ranges leq Ng u (u + Ng One) newPending ((value c + oldPending) :: outputs)
 rangeLemma {oldPending} spec (MkRanges old digits) prf c =
   let output = value c + oldPending
       digit = MkDigit output (absorbCarry spec old c)
